@@ -33,6 +33,20 @@ For a short startup/shutdown smoke run, use `bun run demo --smoke`.
 
 If you already have the PR checkout and this repo as sibling directories, skip the clones and run the build/install commands from those directories. The explicit Zig build plus `--skip-zig` copy step avoids the `sh`-based native build wrapper on Windows.
 
+## Remove the local Bun link
+
+From this repro directory, remove the symlink created by `bun link @opentui/core`:
+
+```powershell
+Remove-Item .\node_modules\@opentui\core
+```
+
+To unregister the source checkout as a globally linkable package, run this from `opentui\packages\core`:
+
+```powershell
+bun unlink
+```
+
 ## Observe it
 
 Run in Windows Terminal (`WT_SESSION` must be set), with a terminal profile background that differs from the demo colors. Maximize or snap the window so the unused right/bottom pixel gutter is visible. The app surface and gutter should cycle through red, green, blue, and intermediate colors together; the gutter returns to the profile background on Ctrl+C.
