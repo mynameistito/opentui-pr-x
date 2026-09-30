@@ -2,7 +2,7 @@
 
 Minimal live repro for [OpenTUI PR #1548](https://github.com/anomalyco/opentui/pull/1548).
 
-This app uses `CliRenderer.setBackgroundColor()` from the PR build. In a supported Windows Terminal session, OpenTUI sends OSC 11 so the unused pixel gutter can match the TUI background; it sends OSC 111 on exit only after setting that override. Ghostty and other terminals are intentionally not modified.
+This app smoothly cycles its renderer background through RGB using `CliRenderer.setBackgroundColor()` from the PR build. In a supported Windows Terminal session, OpenTUI sends OSC 11 on each color change so the unused pixel gutter follows the TUI; it sends OSC 111 on exit only after setting that override. Ghostty and other terminals are intentionally not modified.
 
 ## Run against the PR build
 
@@ -35,6 +35,6 @@ If you already have the PR checkout and this repo as sibling directories, skip t
 
 ## Observe it
 
-Run in Windows Terminal (`WT_SESSION` must be set), with a terminal profile background that differs from `#21232e`. Maximize or snap the window so the unused right/bottom pixel gutter is visible. The gutter should change to the demo background while it runs and return to the profile background on Ctrl+C.
+Run in Windows Terminal (`WT_SESSION` must be set), with a terminal profile background that differs from the demo colors. Maximize or snap the window so the unused right/bottom pixel gutter is visible. The app surface and gutter should cycle through red, green, blue, and intermediate colors together; the gutter returns to the profile background on Ctrl+C.
 
 The code only syncs terminal background when the terminal is identified as Windows Terminal. Other terminal emulators—including Ghostty—are deliberately left unchanged because OSC 11/111 can leave stale background values there after an OS theme change.
