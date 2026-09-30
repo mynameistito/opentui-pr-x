@@ -1,0 +1,9 @@
+{
+  "name": "opentui-pr-x",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "bun run src/demo.ts"
+  }
+}
